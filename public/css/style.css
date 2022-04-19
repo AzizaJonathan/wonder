@@ -20,6 +20,10 @@
   --max-width: 1200px;
   --footer-background: #0a3d62;
   --font-size-small: 14px;
+  --font-size-regular:16px;
+  --font-weight-regular: 400;
+  --font-weight-semi-bold: 600;
+  --font-weight-bold: 700;
 }
 
 /* debug */
@@ -135,6 +139,10 @@ a {
   margin-right: 20px;
 }
 
+.mb-20 {
+  margin-bottom: 20px;
+}
+
 .mr-50 {
   margin-right: 50px;
 }
@@ -164,6 +172,10 @@ a {
 }
 
 /* general */
+
+.app-content {
+  background-color: var(--gray-light);
+}
 
 .content {
   max-width: var(--max-width);
@@ -196,6 +208,43 @@ a {
   border: 1px solid var(--primary);
   color: var(--primary);
   background-color: white;
+}
+
+.block {
+  padding:20px;
+  border-radius: var(--border-radius);
+  background-color: white;
+  box-shadow: var(--box-shadow);
+}
+
+.form-row {
+  display: flex;
+  flex-flow: column;
+  margin-bottom: 15px;
+}
+
+.form-row label {
+  margin-bottom: 5px;
+  font-weight: var(--font-weight-semi-bold);
+  color: var(--color-dark);
+}
+
+.form-row input,textarea {
+  font-family: var(--font-family);
+  border: 0;
+  border-radius: var(--border-radius);
+  padding: 10px 15px;
+  background-color: var(--gray-light);
+}
+
+.form-row textarea {
+  min-height: 150px;
+}
+
+.form-errors {
+  color: var(--warning);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semi-bold);
 }
 
 /* sidebar */
