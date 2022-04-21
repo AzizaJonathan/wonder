@@ -24,6 +24,7 @@
   --font-weight-regular: 400;
   --font-weight-semi-bold: 600;
   --font-weight-bold: 700;
+  --line-height-hight: 30px;
 }
 
 /* debug */
@@ -158,6 +159,14 @@ small {
   margin-right: 50px;
 }
 
+.mr-auto {
+  margin-right: auto;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
 /* padding */
 
 .p-5 {
@@ -174,6 +183,10 @@ small {
 
 .pb-20 {
   padding-bottom: 20px;
+}
+
+.pb-30 {
+  padding-bottom: 30px;
 }
 
 .py-20 {
@@ -194,6 +207,11 @@ small {
 
 .content {
   max-width: var(--max-width);
+}
+
+.separator {
+  border-bottom: 1px solid var(--gray-light);
+  margin: 30px 0px;
 }
 
 .btn {
