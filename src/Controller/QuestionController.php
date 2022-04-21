@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Question;
+use App\Form\CommentType;
 use App\Form\QuestionType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,10 +40,25 @@ class QuestionController extends AbstractController
   }
 
   #[Route('/{id}', name: 'show')]
-  public function show(Question $question): Response
+  public function show(Request $request, Question $question, EntityManagerInterface $em): Response
   {
+    $comment = new Comment();
+    $commentForm = $this->createForm(CommentType::class, $comment);
+    $commentForm->handleRequest($request);
+    if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+      $comment->setCreatedAt(new \DateTimeImmutable());
+      $comment->setRating(0);
+      $comment->setQuestion($question);
+      $question->setNbrOfResponse($question->getNbrOfResponse() + 1);
+      $em->persist($comment);
+      $em->flush();
+      $this->addFlash('success', 'Votre réponse a bien été ajoutée');
+      return $this->redirect($request->getUri());
+    }
+
     return $this->render('question/show.html.twig', [
       'question' => $question,
+      'form' => $commentForm->createView()
     ]);
   }
 }
