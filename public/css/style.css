@@ -151,6 +151,10 @@ small {
   margin-right: 20px;
 }
 
+.mb-10 {
+  margin-bottom: 10px;
+}
+
 .mb-20 {
   margin-bottom: 20px;
 }
@@ -406,3 +410,9 @@ footer {
   white-space: pre-wrap;
 }
 
+/* user profile */
+
+.profile-picture {
+  width: 150px;
+  border-radius: var(--border-radius);
+}
