@@ -12,10 +12,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/question', name: 'question_')]
 class QuestionController extends AbstractController
 {
-  #[Route('/ask', name: 'form')]
+  #[Route('/question/ask', name: 'question_form')]
   public function index(Request $request, EntityManagerInterface $em): Response
   {
 
@@ -39,7 +38,7 @@ class QuestionController extends AbstractController
     ]);
   }
 
-  #[Route('/{id}', name: 'show')]
+  #[Route('/question/{id}', name: 'question_show')]
   public function show(Request $request, Question $question, EntityManagerInterface $em): Response
   {
     $comment = new Comment();
@@ -60,5 +59,23 @@ class QuestionController extends AbstractController
       'question' => $question,
       'form' => $commentForm->createView()
     ]);
+  }
+
+  #[Route('/question/rating/{id}/{score}', name: 'question_rating')]
+  public function ratingQuestion(Request $request, Question $question, int $score, EntityManagerInterface $em)
+  {
+    $question->setRating($question->getRating() + $score);
+    $em->flush();
+    $referer = $request->server->get('HTTP_REFERER');
+    return $referer ? $this->redirect($referer) : $this->redirectToRoute('home');
+  }
+
+  #[Route('/comment/rating/{id}/{score}', name: 'comment_rating')]
+  public function ratingComment(Request $request, Comment $comment, int $score, EntityManagerInterface $em)
+  {
+    $comment->setRating($comment->getRating() + $score);
+    $em->flush();
+    $referer = $request->server->get('HTTP_REFERER');
+    return $referer ? $this->redirect($referer) : $this->redirectToRoute('home');
   }
 }
