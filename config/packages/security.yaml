@@ -21,6 +21,8 @@ security:
             lazy: true
             provider: app_user_provider
             custom_authenticator: App\Security\LoginFormAuthenticator
+            remember_me:
+                secret: '%kernel.secret'
             logout:
                 path: logout
                 # where to redirect after logout
