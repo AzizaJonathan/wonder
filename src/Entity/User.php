@@ -53,10 +53,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank(message: 'Veuillez renseigner une image de profil.')]
     private $picture;
 
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Vote::class, orphanRemoval: true)]
+    private $votes;
+
     public function __construct()
     {
         $this->questions = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->votes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -240,5 +244,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     $this->newPassword = $newPassword;
 
     return $this;
+  }
+
+  /**
+   * @return Collection<int, Vote>
+   */
+  public function getVotes(): Collection
+  {
+      return $this->votes;
+  }
+
+  public function addVote(Vote $vote): self
+  {
+      if (!$this->votes->contains($vote)) {
+          $this->votes[] = $vote;
+          $vote->setAuthor($this);
+      }
+
+      return $this;
+  }
+
+  public function removeVote(Vote $vote): self
+  {
+      if ($this->votes->removeElement($vote)) {
+          // set the owning side to null (unless already changed)
+          if ($vote->getAuthor() === $this) {
+              $vote->setAuthor(null);
+          }
+      }
+
+      return $this;
   }
 }
