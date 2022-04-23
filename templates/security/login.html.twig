@@ -3,9 +3,9 @@
 {% block title %}Connexion{% endblock %}
 
 {% block body %}
-    <div class="block">
-        <form method="post">
-            <h2 class="pb-30">Connexion</h2>
+<div class="block">
+  <form method="post">
+    <h2 class="pb-30">Connexion</h2>
     <div class="form-row">
     <label for="inputEmail">Email</label>
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" required autofocus>
@@ -25,12 +25,19 @@
     </ul>
     {% endif %}
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+    <div class="d-flex flex-row">
     <button class="btn btn-primary mr-10" type="submit">
-    Connexion
+      Connexion
     </button>
-    <small> 
-    <a href="{{ path('signup') }}">Vous n'avez pas encore de compte?</a>
-    </small>
+    <div class="d-flex flex-column">
+      <small>
+      <a href="{{ path('signup') }}">Vous n'avez pas encore de compte ?</a>
+      </small>
+      <small>
+      <a href="{{ path('reset-password-request') }}">Vous avez oublié votre mot de passe ?</a>
+      </small>
+    </div>
+    </div>
   </form>
 </div>
 {% endblock %}
