@@ -21,6 +21,30 @@ class QuestionRepository extends ServiceEntityRepository
         parent::__construct($registry, Question::class);
     }
 
+  public function getQuestionsWithAuthors()
+  {
+    return $this->createQueryBuilder('q')
+      ->leftJoin('q.author', 'a')
+      ->addSelect('a')
+      ->getQuery()
+      ->getResult();
+  }
+
+  public function getQuestionsWithCommentsAndAuthors(string $id): Question
+  {
+    return $this->createQueryBuilder('q')
+    ->andWhere('q.id = :id')
+    ->setParameter('id', $id)
+    ->leftJoin('q.author', 'a')
+    ->addSelect('a')
+    ->leftJoin('q.comments', 'c')
+    ->addSelect('c')
+    ->leftJoin('c.author', 'ca')
+    ->addSelect('ca')
+    ->getQuery()
+    ->getOneOrNullResult();
+  }
+
     /**
      * @throws ORMException
      * @throws OptimisticLockException
