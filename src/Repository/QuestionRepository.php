@@ -30,7 +30,7 @@ class QuestionRepository extends ServiceEntityRepository
       ->getResult();
   }
 
-  public function getQuestionsWithCommentsAndAuthors(string $id): Question
+  public function getQuestionWithCommentsAndAuthors(string $id) 
   {
     return $this->createQueryBuilder('q')
     ->andWhere('q.id = :id')

@@ -51,8 +51,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $comments;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Assert\Url(message: 'Veuillez renseigner une url.')]
-    #[Assert\NotBlank(message: 'Veuillez renseigner une image de profil.')]
     private $picture;
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Vote::class, orphanRemoval: true)]

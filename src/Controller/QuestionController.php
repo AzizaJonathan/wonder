@@ -47,7 +47,7 @@ class QuestionController extends AbstractController
   #[Route('/question/{id}', name: 'question_show')]
   public function show(Request $request, QuestionRepository $questionRepo, int $id, EntityManagerInterface $em): Response
   {
-      $question = $questionRepo->getQuestionsWithCommentsAndAuthors($id);
+      $question = $questionRepo->getQuestionWithCommentsAndAuthors($id);
       $options = [
           'question' => $question
       ];
@@ -69,9 +69,9 @@ class QuestionController extends AbstractController
           }
           $options['form'] = $commentForm->createView();
       }
+
       return $this->render('question/show.html.twig', $options);
   }
-
   #[Route('/question/rating/{id}/{score}', name: 'question_rating')]
   #[IsGranted('ROLE_USER')]
   public function ratingQuestion(Request $request, Question $question, VoteRepository $voteRepo, int $score, EntityManagerInterface $em)
