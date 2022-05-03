@@ -25,6 +25,9 @@ security:
                 secret: '%kernel.secret'
             logout:
                 path: logout
+            login_throttling:
+                max_attempts: 3
+                interval: '5 minutes'
                 # where to redirect after logout
                 # target: app_any_route
 
