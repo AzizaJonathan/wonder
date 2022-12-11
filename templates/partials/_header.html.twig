@@ -3,10 +3,6 @@
   <a class="header-logo" href="{{ path('home') }}">
     <img src="{{ asset('images/logo.svg')}}">
   </a>
-  <div class="header-search p-10 flex-fill">
-    <i class="fas fa-search"></i>
-    <input type="text">
-  </div>
   {%- if is_granted('ROLE_USER') -%}
     <div class="d-flex flow-row-nowrap justify-content-center">
     <a href="{{ path('current_user') }}">
